@@ -17,49 +17,12 @@ bus_a2$StopName=bus_a2$StopName$Zh_tw
 
 write.csv(bus_a2, paste0("A2_Realtime/", gsub("-|:", "_", substr(as.character(TIME), 1, regexpr("\\.", as.character(TIME))-1)), ".csv"), row.names=F)
 
-repo=repository()
-add(repo, path=paste0("A2_Realtime/", gsub("-|:", "_", substr(as.character(TIME), 1, regexpr("\\.", as.character(TIME))-1)), ".csv"))
-
-# usethis::create_github_token()
-# gitcreds::gitcreds_set()
-usethis::git_sitrep()
-
-git2r::push(repo, credentials=git2r::cred_token(token="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"))
-
-usethis::use_git()
-
-
-
-
-
-
-
-
-
-
-
-repo <- git2r::repository()
-
-# 2. Pull changes from the remote to synchronize your local branch
-# If there are conflicts, R will prompt you to resolve them.
-message("Attempting to pull latest changes from remote...")
-git2r::pull(repo)
-message("Attempting to push using PAT...")
-add(repo, path=paste0("A2_Realtime/", gsub("-|:", "_", substr(as.character(TIME), 1, regexpr("\\.", as.character(TIME))-1)), ".csv"))
-add(repo, path="GetRealtime.R")
-git2r::push(repo, credentials = git2r::cred_token(token = "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"))
-
-git2r::add(repo, "GetRealtime.R") 
-git2r::commit(repo, message = "Automated nightly update")
-cred <- git2r::cred_token(token="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")
-git2r::push(repo, credentials = cred)
-usethis::use_git()
-
 system("git init")
 system("git add .")
+# system('git config --global user.email "robert1328.mg10@nycu.edu.tw"')
+# system('git config --global user.name "ChiaJung-Yeh"')
 system('git commit -m "initial commit"')
 system("git push origin main")
-
 
 
 
