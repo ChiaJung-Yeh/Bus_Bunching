@@ -34,7 +34,6 @@ repeat{
   fwrite(exp_fil, "A2_Realtime/A2Hour.csv", row.names=F)
   
   
-  
   system("git init")
   system("git add .")
   # system('git config --global user.email "robert1328.mg10@nycu.edu.tw"')
