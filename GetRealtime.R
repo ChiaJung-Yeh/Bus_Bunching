@@ -54,6 +54,10 @@ git2r::commit(repo, message = "Automated nightly update")
 cred <- git2r::cred_token(token="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")
 git2r::push(repo, credentials = cred)
 usethis::use_git()
+
+system("git init")
+system("git add .")
+system('git commit -m "initial commit"')
 system("git push origin main")
 
 
