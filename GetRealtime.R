@@ -1,6 +1,8 @@
 library(dplyr)
 library(TDX)
 library(git2r)
+library(lubridate)
+library(data.table)
 
 client_id="robert1328.mg10-5fef152e-ee4f-4cfb"
 client_secret="591fe8aa-6fdc-4c3b-9663-428a62ec8863"
@@ -17,7 +19,21 @@ repeat{
   bus_a2$SubRouteName=bus_a2$SubRouteName$Zh_tw
   bus_a2$StopName=bus_a2$StopName$Zh_tw
   
+  # Export A2 Data (by minute)
   write.csv(bus_a2, paste0("A2_Realtime/", gsub("-|:", "_", substr(as.character(TIME), 1, regexpr("\\.", as.character(TIME))-1)), ".csv"), row.names=F)
+  
+  
+  # Export the latest 60 minute data (model input data)
+  all_files=dir("A2_Realtime", pattern="2025_")
+  
+  temp=difftime(TIME, as.POSIXct(gsub(".csv", "", all_files), format="%Y_%m_%d %H_%M_%S", tz="Asia/Taipei"), units="min")
+  all_files=all_files[temp<=60]
+  all_files=paste0("A2_Realtime/", all_files)
+  exp_fil=rbindlist(lapply(all_files, fread))%>%
+    unique()
+  fwrite(exp_fil, "A2_Realtime/A2Hour.csv", row.names=F)
+  
+  
   
   system("git init")
   system("git add .")
