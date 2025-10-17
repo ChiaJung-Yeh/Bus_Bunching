@@ -35,7 +35,9 @@ repeat{
   
   
   # remove outdate files
-  file.remove(paste0("A2_Realtime/", all_files[time_diff>90]))
+  if(length(all_files[time_diff>180])!=0){
+    file.remove(paste0("A2_Realtime/", all_files[time_diff>180]))
+  }
   
   system("git init")
   system("git add .")
