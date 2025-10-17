@@ -29,7 +29,7 @@ repeat{
   temp=difftime(TIME, as.POSIXct(gsub(".csv", "", all_files), format="%Y_%m_%d %H_%M_%S", tz="Asia/Taipei"), units="min")
   all_files=all_files[temp<=60]
   all_files=paste0("A2_Realtime/", all_files)
-  exp_fil=rbindlist(lapply(all_files, fread))%>%
+  exp_fil=rbindlist(lapply(all_files, read.csv))%>%
     unique()
   fwrite(exp_fil, "A2_Realtime/A2Hour.csv", row.names=F)
   
