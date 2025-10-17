@@ -26,13 +26,16 @@ repeat{
   # Export the latest 60 minute data (model input data)
   all_files=dir("A2_Realtime", pattern="2025_")
   
-  temp=difftime(TIME, as.POSIXct(gsub(".csv", "", all_files), format="%Y_%m_%d %H_%M_%S", tz="Asia/Taipei"), units="min")
-  all_files=all_files[temp<=60]
-  all_files=paste0("A2_Realtime/", all_files)
-  exp_fil=rbindlist(lapply(all_files, read.csv))%>%
+  time_diff=difftime(TIME, as.POSIXct(gsub(".csv", "", all_files), format="%Y_%m_%d %H_%M_%S", tz="Asia/Taipei"), units="min")
+  sel_files=all_files[time_diff<=60]
+  sel_files=paste0("A2_Realtime/", sel_files)
+  exp_fil=rbindlist(lapply(sel_files, read.csv))%>%
     unique()
   fwrite(exp_fil, "A2_Realtime/A2Hour.csv", row.names=F)
   
+  
+  # remove outdate files
+  file.remove(paste0("A2_Realtime/", all_files[time_diff>90]))
   
   system("git init")
   system("git add .")
