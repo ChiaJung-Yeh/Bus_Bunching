@@ -45,9 +45,11 @@ repo <- git2r::repository()
 message("Attempting to pull latest changes from remote...")
 git2r::pull(repo)
 message("Attempting to push using PAT...")
+add(repo, path=paste0("A2_Realtime/", gsub("-|:", "_", substr(as.character(TIME), 1, regexpr("\\.", as.character(TIME))-1)), ".csv"))
+add(repo, path="GetRealtime.R")
 git2r::push(repo, credentials = git2r::cred_token(token = "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"))
 
 
-
+system("git push origin main")
 
 
