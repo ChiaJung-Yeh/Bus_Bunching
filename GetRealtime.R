@@ -25,6 +25,7 @@ repeat{
   # system('git config --global user.name "ChiaJung-Yeh"')
   system('git commit -m "initial commit"')
   system("git push origin main")
+  # system("git pull origin main")
   
   # Log progress
   message(format(Sys.time(), "%Y-%m-%d %H:%M:%S"), " — script executed")
