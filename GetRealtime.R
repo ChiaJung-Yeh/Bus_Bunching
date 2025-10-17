@@ -49,8 +49,14 @@ add(repo, path=paste0("A2_Realtime/", gsub("-|:", "_", substr(as.character(TIME)
 add(repo, path="GetRealtime.R")
 git2r::push(repo, credentials = git2r::cred_token(token = "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"))
 
-repo <- git2r::repository(".")
+git2r::add(repo, "GetRealtime.R") 
+git2r::commit(repo, message = "Automated nightly update")
 cred <- git2r::cred_token(token="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")
 git2r::push(repo, credentials = cred)
+usethis::use_git()
+system("git push origin main")
+
+
+
 
 
