@@ -30,7 +30,7 @@ repeat{
   # Log progress
   message(format(Sys.time(), "%Y-%m-%d %H:%M:%S"), " — script executed")
   
-  Sys.sleep(30)
+  Sys.sleep(55)
 }
 
 
