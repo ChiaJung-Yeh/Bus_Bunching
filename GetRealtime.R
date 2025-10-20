@@ -13,8 +13,15 @@ repeat{
   TIME=as.POSIXct(Sys.time(), tz="Asia/Taipei")
   url="https://tdx.transportdata.tw/api/basic/v2/Bus/RealTimeNearStop/City/Taipei/307?&%24format=JSON"
   x=GET(url, add_headers(Accept="application/+json", Authorization=paste("Bearer", access_token)))
-  bus_a2=fromJSON(content(x, as="text"))%>%
-    select(PlateNumb, RouteUID, RouteName, SubRouteUID, SubRouteName, Direction, StopUID, StopName, StopSequence, DutyStatus, BusStatus, A2EventType, GPSTime, TripStartTime, TripStartTimeType)
+  
+  tryCatch({
+    bus_a2=fromJSON(content(x, as="text"))
+  }, error=function(err){
+    access_token=get_token(client_id, client_secret)
+    bus_a2=fromJSON(content(x, as="text"))
+  })
+  
+  bus_a2=select(bus_a2, PlateNumb, RouteUID, RouteName, SubRouteUID, SubRouteName, Direction, StopUID, StopName, StopSequence, DutyStatus, BusStatus, A2EventType, GPSTime, TripStartTime, TripStartTimeType)
   bus_a2$RouteName=bus_a2$RouteName$Zh_tw
   bus_a2$SubRouteName=bus_a2$SubRouteName$Zh_tw
   bus_a2$StopName=bus_a2$StopName$Zh_tw
@@ -37,6 +44,7 @@ repeat{
   # remove outdate files
   if(length(all_files[time_diff>180])!=0){
     file.remove(paste0("A2_Realtime/", all_files[time_diff>180]))
+
   }
   
   system("git init")
