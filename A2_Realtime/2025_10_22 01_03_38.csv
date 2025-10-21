@@ -1,3 +1,0 @@
-"PlateNumb","RouteUID","RouteName","SubRouteUID","SubRouteName","Direction","StopUID","StopName","StopSequence","DutyStatus","BusStatus","A2EventType","GPSTime","TripStartTime","TripStartTimeType"
-"042-U5","TPE16111","307","TPE157462","307莒光往板橋前站",1,"TPE15389","大庭新村",57,1,0,1,"2025-10-22T01:03:14+08:00","2025-10-21T23:53:49+08:00",0
-"261-U5","TPE16111","307","TPE157462","307莒光往板橋前站",1,"TPE194689","臺北客運板橋前站(藝文)",62,2,NA,1,"2025-10-22T00:59:29+08:00","2025-10-21T23:26:17+08:00",0
